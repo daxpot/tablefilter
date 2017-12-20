@@ -24,13 +24,9 @@ export default class TableFilter {
 				var filterTip = document.createElement("div");
 				filterTip.className = "filterTip";
 				div.appendChild(filterTip);
-'<div class="filterList">\
-    <div class="filterItem"><label> <input type="checkbox" value="">奥斯卡的积分哈水电费阿斯asdfasdfasdfa顿asdfas发</label></div>\
-    <div class="filterItem"><label> <input type="checkbox" value=""> B2 </label></div>\
-    <div class="filterItem"><label> <input type="checkbox" value=""> B3 </label></div>\
-    <div class="filterItem"><label> <input type="checkbox" value=""> B4 </label></div>\
-    <div class="filterBtns"><button>确定</button><button>取消</button></div>\
-</div>';
+				div.addEventListener("click", function(){
+					event.stopPropagation();
+				}, false);
 				filterTip.addEventListener('click', this.onClick.bind(this), false);
 				firstRow.cells[i].appendChild(div);
 			}
@@ -58,6 +54,7 @@ export default class TableFilter {
 				fl.style.display = "none";
 			}
 		}
+		event.stopPropagation();
 	}
 
 	getColumnIndex(filterObj) {
@@ -88,12 +85,16 @@ export default class TableFilter {
 </div>\
 <div class="filterItem">按值过滤</div>';
 
+		var filterScroll = document.createElement("div");
+		filterScroll.className = "filterScroll";
 		for(var item in selects) {
 			var filterItem = document.createElement("div");
 			filterItem.className = "filterItem";
 			filterItem.innerHTML = '<label> <input type="checkbox" name="filterCheckbox" value="">'+item+'</label>';
-			filterList.appendChild(filterItem);
+			filterScroll.appendChild(filterItem);
 		}
+		filterList.appendChild(filterScroll);
+
 		var filterBtns = document.createElement("div");
 		filterBtns.className = "filterBtns";
 		var okBtn = document.createElement("button");
@@ -140,7 +141,9 @@ export default class TableFilter {
 		for(var i = 1; i<this.el.rows.length; i++) {
 			var sd = true;
 			for(var j = 0; j<this.el.rows[i].cells.length; j++){
+				// if((this.selecteds[j] && Object.keys(this.selecteds[j]).length > 0) || (this.ranges[j] && (this.ranges[j].min || this.ranges[j].max))) {
 				var txt = this.el.rows[i].cells[j].innerText.trim();
+				// }
 				if(this.ranges[j]) {
 					if(this.ranges[j].min && txt < this.ranges[j].min) {
 						sd = false;
@@ -160,10 +163,11 @@ export default class TableFilter {
 			}
 			if(!sd) {
 				this.el.rows[i].style.display = "none";
-			} else {
+			} else if(this.el.rows[i].style.display == "none") {
 				this.el.rows[i].style.display = "table-row";
 			}
 		}
 		filterList.style.display = "none";
+		event.stopPropagation();
 	}
 }
