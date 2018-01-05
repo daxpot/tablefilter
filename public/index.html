@@ -17,5 +17,20 @@
 				<tr><td>8<td>B2<td>C2<td>6
 		</tbody>
 	</table>
+	<p>测试大表格花费时间情况</p>
+	<table id='filter-table2'>
+		<thead><tr><th>A<th data-filter='true'>B<th data-filter='true'>C<th data-filter='true'>D<th data-filter='true'>E<th data-filter='true'>F<th data-filter='true'>G<th data-filter='true'>H<th data-filter='true'>I<th data-filter='true'>J<th data-filter='true'>K</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		var dom = document.getElementById("filter-table2");
+		var tbody = dom.tBodies[0];
+		var htm = "";
+		for(var i = 0; i<1000; i++) {
+			htm += "<tr><td>" + i + "<td>B" + (parseInt(Math.random()*100))  + "<td>C" + (parseInt(Math.random()*100)) + "<td>D" + (parseInt(Math.random()*100)) + "<td>E" + (parseInt(Math.random()*100)) + "<td>F" + (parseInt(Math.random()*100)) + "<td>G" + (parseInt(Math.random()*100)) + "<td>H" + (parseInt(Math.random()*100)) + "<td>I" + (parseInt(Math.random()*100)) + "<td>J" + (parseInt(Math.random()*100)) + "<td>K" + (parseInt(Math.random()*100))
+		}
+		tbody.innerHTML = htm;
+	</script>
 	<script type="text/javascript" src='js/test.js'></script>
 </body>

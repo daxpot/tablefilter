@@ -116,6 +116,7 @@ export default class TableFilter {
 	}
 
 	onOkClick(event) {
+		var startTime = new Date();
 		var columnIndex = event.currentTarget.dataset.index;
 		var filterList = document.getElementById("filterList-" + columnIndex);
 
@@ -137,6 +138,7 @@ export default class TableFilter {
 		}
 		this.selecteds[columnIndex] = selected;
 		this.ranges[columnIndex] = range;
+		this.el.style.display = 'none';		//将父元素display设置为none，减少浏览器重绘次数
 
 		for(var i = 1; i<this.el.rows.length; i++) {
 			var sd = true;
@@ -168,6 +170,9 @@ export default class TableFilter {
 			}
 		}
 		filterList.style.display = "none";
+		this.el.style.display = '';
+		var endTime = new Date();
+		console.log(endTime-startTime);
 		event.stopPropagation();
 	}
 }
