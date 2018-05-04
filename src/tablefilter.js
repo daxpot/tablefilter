@@ -76,6 +76,11 @@ export default class TableFilter {
 		}
 		var filterList = document.createElement("div");
 		filterList.id = "filterList-" + columnIndex;
+		if(columnIndex > this.el.rows[0].cells.length/2) {
+			filterList.style.right = "3px";
+		} else {
+			filterList.style.left = "3px";
+		}
 		filterList.className = "filterList";
 
 		filterList.innerHTML = '<div class="filterItem">按条件过滤</div>\
